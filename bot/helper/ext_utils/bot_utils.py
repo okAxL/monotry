@@ -190,9 +190,9 @@ def get_readable_message():
 
                 else:
                     msg += f"\n{get_progress_bar_string(download)} {download.progress()}"
-                    msg += f"\n{get_readable_file_size(download.processed_bytes())} / {download.size()}"
                     msg += f"\n{download.speed()}" 
-                    msg += f"   |   ETA: {download.eta()}"
+                    msg += f"  |  {get_readable_file_size(download.processed_bytes())} / {download.size()}"
+                    msg += f"\nETA: {download.eta()}"
                     
 
                 if hasattr(download, 'seeders_num'):
