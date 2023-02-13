@@ -41,16 +41,16 @@ class MirrorStatus:
         STATUS_CHECKING = "📝 CheckUp"
         STATUS_SEEDING = "🌧 Seed"
     else:
-        STATUS_UPLOADING = "Upload"
-        STATUS_DOWNLOADING = "Download"
+        STATUS_UPLOADING = "Uploading"
+        STATUS_DOWNLOADING = "Downloading"
         STATUS_CLONING = "Clone"
         STATUS_WAITING = "Queue"
         STATUS_PAUSED = "Pause"
-        STATUS_ARCHIVING = "Archive"
-        STATUS_EXTRACTING = "Extract"
-        STATUS_SPLITTING = "Split"
+        STATUS_ARCHIVING = "Archiving"
+        STATUS_EXTRACTING = "Extracting"
+        STATUS_SPLITTING = "Splitting"
         STATUS_CHECKING = "CheckUp"
-        STATUS_SEEDING = "Seed"
+        STATUS_SEEDING = "Seeding"
 
 class EngineStatus:
     STATUS_ARIA = "Aria2c"
@@ -178,7 +178,7 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
             msg += f"<b> <a href='{download.message.link}'>{download.status()}</a>: </b>"
-            msg += f"<code>{escape(str(download.name()))}</code>"
+            msg += f"\n<code>{escape(str(download.name()))}</code>"
             if download.status() not in [MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_SPLITTING]:
                 if EMOJI_THEME is True:
                     msg += f"\n<b>├</b>{get_progress_bar_string(download)} {download.progress()}"
@@ -189,12 +189,11 @@ def get_readable_message():
                     msg += f"\n<b>├⛓️ Engine :</b> {download.eng()}"
 
                 else:
-                    msg += f"\n<b></b>{get_progress_bar_string(download)} {download.progress()}"
-                    msg += f"\n<b>Processed:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                    msg += f"\n<b>Speed:</b> {download.speed()}" 
-                    msg += f"<b>  |  ETA:</b> {download.eta()}"
-                    msg += f"\n<b>Engine:</b> {download.eng()}"
-                    msg += f'<b>  |  Added By: </b><code>{download.message.from_user.first_name}</code>'
+                    msg += f"\n{get_progress_bar_string(download)} {download.progress()}"
+                    msg += f"\n{download.speed()}" 
+                    msg += f"   |   {get_readable_file_size(download.processed_bytes())} / {download.size()}"
+                    msg += f"/nETA: {download.eta()}"
+                    
 
                 if hasattr(download, 'seeders_num'):
                     try:
@@ -202,8 +201,8 @@ def get_readable_message():
                             msg += f"\n<b>├🌱 Seeders:</b> {download.seeders_num()} | <b>🐌 Leechers:</b> {download.leechers_num()}"
                             # msg += f"\n<b>├🧿 To Select:</b> <code>/{BotCommands.BtSelectCommand} {download.gid()}</code>"
                         else:
-                            msg += f"\n<b>Seeders:</b> {download.seeders_num()}"
-                            msg += f"<b>  |  Leechers:</b> {download.leechers_num()}"
+                            msg += f"\n↑ {download.seeders_num()}"
+                            msg += f"   |   ↓ {download.leechers_num()}"
                             # msg += f"\n<b>├ To Select:</b> <code>/{BotCommands.BtSelectCommand} {download.gid()}</code>"
                     except:
                         pass
