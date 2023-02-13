@@ -190,9 +190,9 @@ def get_readable_message():
 
                 else:
                     msg += f"\n{get_progress_bar_string(download)} {download.progress()}"
-                    msg += f"\n{download.speed()}" 
                     msg += f"   |   {get_readable_file_size(download.processed_bytes())} / {download.size()}"
-                    msg += f"\nETA: {download.eta()}"
+                    msg += f"\n{download.speed()}" 
+                    msg += f"   |   ETA: {download.eta()}"
                     
 
                 if hasattr(download, 'seeders_num'):
@@ -282,9 +282,9 @@ def get_readable_message():
             bmsg += f"\n<b>🎮 RAM:</b> {virtual_memory().percent}% | <b>🟢 UPTIME:</b> {get_readable_time(time() - botStartTime)}"
             bmsg += f"\n<b>🔻 DL:</b> {get_readable_file_size(dl_speed)}/s | <b>🔺 UL:</b> {get_readable_file_size(up_speed)}/s"
         else:
-            bmsg = f"<b>CPU:</b> {cpu_percent()}%  |  <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
-            bmsg += f"\n<b>RAM:</b> {virtual_memory().percent}%  |  <b>UPTIME:</b> {get_readable_time(time() - botStartTime)}"
-            bmsg += f"\n<b>DL:</b> {get_readable_file_size(dl_speed)}/s  |  <b>UL:</b> {get_readable_file_size(up_speed)}/s"
+            bmsg = f"CPU: {cpu_percent()}%  |  FREE: {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
+            bmsg += f"\nRAM: {virtual_memory().percent}%  |  UPTIME: {get_readable_time(time() - botStartTime)}"
+            bmsg += f"\nDL: {get_readable_file_size(dl_speed)}/s  |  UL: {get_readable_file_size(up_speed)}/s"
         
         buttons = ButtonMaker()
         buttons.sbutton("Close", "status close")
